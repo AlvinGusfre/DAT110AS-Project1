@@ -30,7 +30,7 @@ public class Message {
 
 		encoded[0] = (byte) payload.length;
 
-		for (int i = 1; i < payload.length - 1; i++) 
+		for (int i = 1; i < payload.length+1; i++) 
 		{
 			encoded[i] = payload[i - 1];
 		}
@@ -45,11 +45,14 @@ public class Message {
 
 	public void decapsulate(byte[] received) {
 		
-		for (int i = 1; i < (int)received[0]; i++)
+		byte[] decaps = new byte[received[0]];
+		
+		for (int i = 1; i <= received[0]; i++)
 		{
-			payload[i-1] = received[i];
+			decaps[i-1] = received[i];
 		}
 		
+		payload = decaps;
 		
 		// TODO
 		// decapsulate the data contained in the received byte array and store it
