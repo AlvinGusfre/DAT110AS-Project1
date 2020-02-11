@@ -42,6 +42,21 @@ public class Controller  {
 		displayclient.register(stopdisplay);
 		sensorclient.register(stopsensor);
 		
+		for (int i = 0; i < N; i++)
+		{
+			String temp = "" + sensor.read();
+			display.write(temp);
+			
+			try 
+			{
+				Thread.sleep(1000);
+			}
+			catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		
 		// TODO:
 		// loop while reading from sensor and write to display via RPC
 		

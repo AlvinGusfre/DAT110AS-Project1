@@ -26,5 +26,4 @@ public class Sensor extends RPCStub {
 		
 		return temp;
 	}
-	
 }

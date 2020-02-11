@@ -1,5 +1,6 @@
 package no.hvl.dat110.rpc;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 
 import no.hvl.dat110.TODO;
@@ -29,7 +30,8 @@ public class RPCUtils {
 		return encoded;
 	}
 
-	public static String unmarshallString(byte[] data) {
+	public static String unmarshallString(byte[] data) 
+	{
 
 		String decoded = new String(Arrays.copyOfRange(data, 1, data.length));
 
@@ -38,7 +40,8 @@ public class RPCUtils {
 		return decoded;
 	}
 
-	public static byte[] marshallVoid(byte rpcid) {
+	public static byte[] marshallVoid(byte rpcid) 
+	{
 
 		byte[] encoded = new byte[1];
 		
@@ -48,13 +51,14 @@ public class RPCUtils {
 
 	}
 
-	public static void unmarshallVoid(byte[] data) {
+	public static void unmarshallVoid(byte[] data) 
+	{
 
 		// TODO: unmarshall void type
-		return;
 	}
 
-	public static byte[] marshallBoolean(byte rpcid, boolean b) {
+	public static byte[] marshallBoolean(byte rpcid, boolean b) 
+	{
 
 		byte[] encoded = new byte[2];
 
@@ -69,38 +73,41 @@ public class RPCUtils {
 		return encoded;
 	}
 
-	public static boolean unmarshallBoolean(byte[] data) {
+	public static boolean unmarshallBoolean(byte[] data) 
+	{
 
 		return (data[1] > 0);
 
 	}
-
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	//TODO UPSUPSUPSUPSUDASDVJHADFKLANSDBJAHSBD SJEKK DETTE UT
-	public static byte[] marshallInteger(byte rpcid, int x) {
+	public static byte[] marshallInteger(byte rpcid, int x) 
+	{
 
 		byte[] encoded;
+		byte[] num = BigInteger.valueOf(x).toByteArray();
+		encoded = new byte[num.length + 1];
+		// TODO: marshall RPC identifier and string into byte array
 
-		encoded = new byte[2];
 		encoded[0] = rpcid;
-		encoded[1] = (byte) x;
-		
+		for(int i = 0; i < num.length; i++) 
+		{
+			encoded[i+1] = num[i];
+		}
 		// TODO: marshall RPC identifier and string into byte array
 
 		return encoded;
 	}
 
-	public static int unmarshallInteger(byte[] data) {
+	public static int unmarshallInteger(byte[] data) 
+	{
 
-		int decoded = data[1];
+		int decoded;
+		byte[] dat = new byte[data.length - 1];
+		for(int i = 0; i < dat.length; i++) 
+		{
+			dat[i] = data[i+1];
+		}
+		decoded = new BigInteger(dat).intValue();
 
 		return decoded;
 		
